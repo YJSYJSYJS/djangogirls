@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+<!-- blog/base.html 의 block 부분과 연결시켜줌 -->
+
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                <p>published: {{post.published_date}}</p>
+            </div>
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{post.title}}</a></h1>
+            <!-- pk: pribary key(데이터베이스의 각 레코드를 식별하는 기본 키)-->
+            <p>{{post.text|linebreaksbr}}</p>
+            <!-- linebreaksbr: 개행 시, 문단 시작(띄어쓰기두번?)-->
+            <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
+        </div>
+    {% endfor %}
+{% endblock content %}
